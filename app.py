@@ -1,6 +1,5 @@
 from pydantic import BaseModel
 from typing import List
-import uvicorn
 from fastapi import FastAPI, status
 import pickle
 
@@ -39,12 +38,8 @@ def predict(features: Marks):
         return {
             "prediction": predicted_difficulty_level,
         }
-        
+
     except Exception as error:
         return {
             "error": str(error)  # Convert error to string
         }, status.HTTP_500_INTERNAL_SERVER_ERROR
-
-
-if __name__ == "__main__":
-    uvicorn.run(app, host="127.0.0.1", port=8000)
