@@ -5,7 +5,8 @@ import pickle
 
 
 class Marks(BaseModel):
-    marks: List[List[float]]
+    marks: List[List[int]]
+    maxMarks: List[int]
 
 
 app = FastAPI()
@@ -16,7 +17,11 @@ model = pickle.load(open("model.pkl", "rb"))
 def predict(features: Marks):
     try:
         features = features.marks
+        maxMarks = features.maxMarks
         new_features = []
+        for feature in features:
+            for index in range(len(feature)):
+                feature[index] = round((feature[index]/maxMarks[index])*10)
         for feature in features:
             while len(feature) < 5:
                 feature.insert(0, 10)
