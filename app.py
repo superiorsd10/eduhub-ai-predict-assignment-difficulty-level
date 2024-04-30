@@ -6,7 +6,7 @@ import pickle
 
 class Marks(BaseModel):
     marks: List[List[int]]
-    maxMarks: List[int]
+    max_marks: List[int]
 
 
 app = FastAPI()
@@ -17,7 +17,7 @@ model = pickle.load(open("model.pkl", "rb"))
 def predict(features: Marks):
     try:
         features = features.marks
-        maxMarks = features.maxMarks
+        maxMarks = features.max_marks
         new_features = []
         for feature in features:
             for index in range(len(feature)):
